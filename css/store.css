@@ -1,0 +1,618 @@
+*::after,
+*::before,
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0 auto;
+  color: white;
+  background-color: #0a0a0a;
+  font-family: 'Lato', sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* Inicio Del Header */
+header {
+  background-color: black;
+  padding: 20px 0;
+  top: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+}
+
+header nav a {
+  text-decoration: none;
+  font-family: 'La Macchina', sans-serif;
+  font-size: 18px;
+}
+
+.logo1 {
+  position: absolute;
+  margin-top: 10px;
+  left: 100px;
+}
+
+.logo1 img {
+  width: 140px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.logo1 img:hover {
+  transform: scale(1.1);
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.menu-item {
+  position: relative;
+  white-space: nowrap;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 0;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+
+.menu-link:hover {
+  color: white;
+}
+
+/* Línea debajo del texto */
+.menu-link span {
+  position: relative;
+}
+
+.menu-link span::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: white;
+  transition: width 0.8s ease;
+}
+
+.menu-item:hover .menu-link span::after {
+  width: 100%;
+}
+
+/* Flecha */
+.arrow {
+  width: 16px;
+  height: 16px;
+  fill: white;
+  transition: transform 0.6s ease;
+  stroke: white;
+  stroke-width: 30px;
+}
+
+.menu-item:hover .arrow {
+  transform: rotate(180deg);
+}
+
+
+.submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: black;
+  overflow: hidden;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease, opacity 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  z-index: 999;
+  border-radius: 10px;
+}
+
+.uno {
+  width: 120px;
+}
+
+.dos {
+  width: 255px;
+}
+
+.tres {
+  width: 242px;
+}
+
+.cuatro {
+  width: 150px;
+}
+
+.menu-item:hover .submenu {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.submenu a {
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.87);
+  text-decoration: none;
+  transition: background-color 0.12s ease;
+}
+
+.submenu a:hover {
+  background-color: #383838;
+  color: white;
+}
+
+/* Menu desplegable */
+.menu-lateral {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 35px;
+  top: 50%;
+  display: none;
+}
+
+.menu2 {
+  position: absolute;
+  opacity: 0;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.menu-lateral label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  z-index: 1;
+}
+
+.menu-lateral label svg {
+  color: rgba(255, 255, 255, 0.8);
+  width: 32px;
+  height: 32px;
+  transition: opacity 0.3s ease;
+  position: absolute;
+}
+
+.menu-lateral label .bi-x {
+  opacity: 0;
+  pointer-events: none;
+  width: 42px;
+  height: 42px;
+}
+
+
+/* Cuando el checkbox está activado, mostrar la X y ocultar el ícono de lista */
+.menu-lateral input:checked+label .bi-list {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.menu-lateral input:checked+label .bi-x {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.menu-toggle {
+  position: fixed;
+  top: 88px;
+  left: 0;
+  width: 65%;
+  height: 100%;
+  background-color: black;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+  overflow: auto;
+  /* Para se puede usar el scroll si en caso no cabe en la pantalla*/
+  z-index: -5;
+}
+
+.menu-toggle li {
+  width: 100%;
+  display: flex;
+  padding: 12px 16px;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  color: white;
+  padding: 18px 0;
+}
+
+.menu-toggle li:hover {
+  border-left-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(156, 156, 156, 0.384);
+}
+
+.menu-toggle li a {
+  color: white;
+  text-decoration: none;
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+.menu-toggle li svg {
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+  fill: white;
+  flex-shrink: 0;
+  /* Para que no se encoja*/
+}
+
+.menu-lateral input:checked~.menu-toggle {
+  transform: translateX(0);
+}
+
+.redes {
+  display: flex;
+  justify-content: right;
+  gap: 20px;
+  padding-top: 10px;
+  padding-right: 30px;
+}
+
+.redes li {
+  cursor: pointer;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border: none !important;
+  background: transparent !important;
+}
+
+@media (max-width: 1300px) {
+  .menu-lateral {
+    display: block;
+  }
+
+  .menu-item {
+    visibility: hidden;
+    /* Oculta contenido pero mantiene espacio y fondo */
+  }
+
+  .logo1{
+    left: 50px;
+  }
+}
+/* Fin Del Header */
+
+
+
+/* main */
+.container-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.item {
+  border-radius: 10px;
+  background-color: #121212;
+  padding: 0.5em;
+}
+
+.item:hover {
+  box-shadow: 0 10px 50px rgba(241, 196, 15, 0.3);
+}
+
+
+.item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  transition: all .4s;
+}
+
+.item figure {
+  overflow: hidden;
+}
+
+.item:hover img {
+  transform: scale(1.2);
+}
+
+.info-product {
+  padding: 15px 30px;
+  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.info-product h2 {
+  color: #f1b50f;
+  letter-spacing: 0.05em;
+}
+
+
+.price {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #d8d8d8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.item {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  transition: transform 0.6s ease;
+}
+
+.item:hover {
+  transform: perspective(300px) rotateX(2deg);
+}
+
+/* Estilo para el figure (contenedor de imágenes) */
+.item figure {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Imagen de fondo */
+.item figure img:first-child {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+/* Blur solo al hacer hover en todo .item */
+.item:hover figure img:first-child {
+  filter: blur(4px);
+
+}
+
+/* Imagen PNG superpuesta */
+.item figure img:last-child {
+  position: absolute;
+  width: 100%;
+  bottom: 25px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 28%;
+  transition: 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* PNG aparece en hover */
+.item:hover figure img:last-child {
+  opacity: 1;
+  transform: translateY(-10%);
+  transition: opacity 0.5s ease, transform 0.8s ease;
+  z-index: 2;
+}
+
+/* Gradiente oscuro */
+.item figure::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to bottom,
+      transparent 10%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0) 95%);
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.item:hover figure::before {
+  opacity: 1;
+}
+
+
+/*Botones*/
+
+a.boton-carrito {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 44px;
+  color: #fff7b3;
+  background-color: #222222;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  text-decoration: none;
+  transition: transform 0.2s ease, background-color 0.5s ease;
+  margin: auto;
+  box-shadow: 0 0 8px rgba(241, 196, 15, 0.25);
+}
+
+a.boton-carrito:hover {
+  background-color: #f1c40f;
+  color: #121212;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #f1c40f;
+}
+
+
+.icono {
+  font-size: 20px;
+  position: absolute;
+  right: 20px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease, right 0.5s ease;
+  z-index: 2;
+  color: #121212;
+}
+
+a.boton-carrito:hover .texto {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+a.boton-carrito:hover .icono {
+  right: 50%;
+  transform: translateX(50%) scale(1.3);
+  opacity: 1;
+}
+
+.barra-carga {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: linear-gradient(90deg, #f1c40f, #b7950b);
+  z-index: 1;
+  border-radius: 8px;
+  transition: width 0.8s ease;
+}
+
+a.boton-carrito:hover .barra-carga {
+  width: 100%;
+  transition: width 0.8s ease;
+}
+
+/* Al quitar hover la barra desaparezca sin transición */
+a.boton-carrito:not(:hover) .barra-carga {
+  width: 0;
+  transition: none;
+}
+
+h5 {
+  text-align: center;
+}
+
+h5 a {
+  color: #d8d8d8;
+  text-decoration: none;
+  transition: color 0.5s ease;
+}
+
+h5 a:hover {
+  color: #f1b50f;
+  text-decoration: underline;
+}
+
+
+
+/*Sección de Footer*/
+.footer {
+  background-color: black;
+  font-family: 'Segoe UI', sans-serif;
+  padding: 40px 20px 20px;
+  font-size: 1rem;
+}
+
+.footer-contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+.footer-columna {
+  flex: 1 1 220px;
+  min-width: 220px;
+}
+
+.footer-columna h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f1b50f;
+}
+
+.footer-columna p,
+.footer-columna ul,
+.footer-columna li {
+  color: #ffffff;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.footer-columna ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-columna ul li {
+  margin-bottom: 10px;
+}
+
+.footer-columna ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-columna ul li a:hover {
+  color: rgb(177, 177, 177);
+}
+
+.redes-sociales {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.redes-sociales a svg {
+  transition: fill 0.3s ease;
+}
+
+.redes-sociales a:hover svg {
+  fill: rgb(177, 177, 177);
+}
+
+.footer-bottom {
+  border-top: 1px solid #f1b50f;
+  margin-top: 30px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #f1b50f;
+}
+
+@media (max-width: 1245px) {
+  .container-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 5px;
+  }
+
+  .container-items .item {
+    flex: 1 1 45%;
+  }
+}
